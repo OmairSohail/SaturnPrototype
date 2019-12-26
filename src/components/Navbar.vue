@@ -1,41 +1,56 @@
 <template>
-<div class="Navbar">
-<!--
-  <nav class="nav-extended">
-    <div class="nav-wrapper">
-      <router-link to="/" class="brand-logo"><img src="../assets/Saturn.png" width="100" height="70"/></router-link>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><router-link to="/">Sass</router-link></li>
-        <li><router-link to="/">Sass</router-link></li>
-        <li><router-link to="/">Sass</router-link></li>
+<div id="navbar">
+  <nav>
+    <div class="nav-wrapper #b388ff deep-purple accent-1">
+      <router-link class="brand-logo center" to="/"><img src="../assets/Saturn.png" width="50" height="50" class="img"/></router-link>
+      <ul class="left">
+        <li v-if="isLoggedin"><button class="btn default">{{CurrentUser}}</button></li>
       </ul>
-    </div>
-    <div class="nav-content">
-      <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#test1">Test 1</a></li>
-        <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-        <li class="tab disabled"><a href="#test3">Disabled Tab</a></li>
-        <li class="tab"><a href="#test4">Test 4</a></li>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+        <li v-if="!isLoggedIn"><router-link to="/signup">Signup</router-link></li>
+        <li v-if="isLoggedIn"><button @click="logout()" class="btn default" id="logoutbtn">Logout</button></li>
       </ul>
     </div>
   </nav>
 
-  <ul class="sidenav" id="mobile-demo">
-    <li><router-link to="/">Sass</router-link></li>
-    <li><router-link to="/">Components</router-link></li>
-    <li><router-link to="/">JavaScript</router-link></li>
-  </ul>
--->
+
 </div>    
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
-    name:'Navbar'
+  name:'navbar',
+  data(){
+    return{
+      isLoggedIn:false,
+      CurrentUser:false
+    }
+  },
+  created(){  
+   if(firebase.auth().currentUser)
+   {
+     this.isLoggedIn = true
+     this.CurrentUser = firebase.auth().currentUser.email
+   }
+  },
+  methods:{
+    logout(){
+      setTimeout(() => {
+        firebase
+        .auth()
+        .signOut()
+        .then(()=>{
+          alert('You Logged Out Successfully')
+          this.$router.go({path : this.$router.path})
+        })
+        .catch((err)=>{alert(err.message)})
+      }, 3000);
+    }
+  }
 }
 </script>
 
 <style scoped>
-
 </style>

@@ -1,13 +1,6 @@
 <template>
   <div id="app">
-    <nav>
-    <div class="nav-wrapper #b388ff deep-purple accent-1">
-      <router-link class="brand-logo center" to="/"><img src="./assets/Saturn.png" width="50" height="50" class="img"/></router-link>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-       
-      </ul>
-    </div>
-  </nav>
+  <navbar/>  
   <div class="container">
     <router-view/>
   </div>
@@ -16,10 +9,10 @@
 </template>
 
 <script>
-
+import navbar from './components/Navbar'
 export default {
   components:{
-    
+    navbar
   }
 }
 </script>
