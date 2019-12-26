@@ -1,0 +1,11 @@
+{
+  "name": "stu",
+  "version": "1.0.0",
+  "description": "Application For Employees",
+  "main": "server.js",
+  "scripts": {
+    "postinstall": "npm install express"
+  },
+  "author": "Omair",
+  "license": "ISC"
+}
